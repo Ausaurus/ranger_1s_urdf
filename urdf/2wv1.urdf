@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="robot_urdf">
+  <link
+    name="base_link">
+  </link>
+  <link
+    name="chassis_link">
+    <inertial>
+      <origin
+        xyz="-0.0014083 -6.245E-17 -0.073421"
+        rpy="0 0 0" />
+      <mass
+        value="3" />
+      <inertia
+        ixx="6131.8"
+        ixy="-1.5482E-12"
+        ixz="-5.216"
+        iyy="6399.1"
+        iyz="3.0535E-14"
+        izz="10875" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/chassis_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.52941 0.54902 0.54902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/chassis_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="chassis_joint"
+    type="fixed">
+    <origin
+      xyz="0.011288 -0.015426 0.96832"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="chassis_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_wheel_holder_link">
+    <inertial>
+      <origin
+        xyz="3.4694E-17 0 -0.19944"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia
+        ixx="4.7304"
+        ixy="-2.0721E-19"
+        ixz="-2.9236E-16"
+        iyy="4.794"
+        iyz="2.8492E-17"
+        izz="2.6221" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/left_wheel_holder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.52941 0.54902 0.54902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/left_wheel_holder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_holder_joint"
+    type="fixed">
+    <origin
+      xyz="-0.067275 0.7012 -0.42432"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="left_wheel_holder_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-6.9389E-18 1.1102E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia
+        ixx="0.056856"
+        ixy="-6.9119E-18"
+        ixz="-4.2487E-34"
+        iyy="0.11125"
+        iyz="-5.5409E-35"
+        izz="0.056856" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/left_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/left_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.35"
+      rpy="0 0 0" />
+    <parent
+      link="left_wheel_holder_link" />
+    <child
+      link="left_wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="right_wheel_holder_link">
+    <inertial>
+      <origin
+        xyz="2.0817E-17 0 -0.19944"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia
+        ixx="4.7304"
+        ixy="1.6133E-18"
+        ixz="-2.8542E-16"
+        iyy="4.794"
+        iyz="1.9438E-17"
+        izz="2.6221" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/right_wheel_holder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.52941 0.54902 0.54902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/right_wheel_holder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_holder_joint"
+    type="fixed">
+    <origin
+      xyz="-0.067275 -0.7012 -0.42432"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="right_wheel_holder_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_wheel_link">
+    <inertial>
+      <origin
+        xyz="-6.9389E-18 -1.1102E-16 -2.7756E-17"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia
+        ixx="0.056856"
+        ixy="-3.2189E-35"
+        ixz="-8.4142E-34"
+        iyy="0.11125"
+        iyz="1.4733E-18"
+        izz="0.056856" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/right_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/right_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.35"
+      rpy="0 0 0" />
+    <parent
+      link="right_wheel_holder_link" />
+    <child
+      link="right_wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="depth_camera_link">
+  </link>
+
+  <joint
+    name="depth_camera_joint"
+    type="fixed">
+    <origin
+      xyz="1.017 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="depth_camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by
+Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="robot_urdf">
+  <link
+    name="base_link">
+  </link>
+  <link
+    name="chassis_link">
+    <inertial>
+      <origin
+        xyz="-0.0030051 -4.1286E-16 -0.017698"
+        rpy="0 0 0" />
+      <mass
+        value="62.522" />
+      <inertia
+        ixx="27.455"
+        ixy="-5.3228E-14"
+        ixz="-0.071116"
+        iyy="29.275"
+        iyz="-1.4137E-15"
+        izz="51.49" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/chassis_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/chassis_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="chassis_joint"
+    type="fixed">
+    <origin
+      xyz="0.011288 -0.015426 0.96832"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="chassis_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_wheel_holder_link">
+    <inertial>
+      <origin
+        xyz="2.0817E-16 -2.2204E-16 -0.2296"
+        rpy="0 0 0" />
+      <mass
+        value="4.2419" />
+      <inertia
+        ixx="0.1287"
+        ixy="-1.0555E-16"
+        ixz="-1.5933E-16"
+        iyy="0.13522"
+        iyz="5.002E-17"
+        izz="0.079121" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/left_wheel_holder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/left_wheel_holder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_holder_joint"
+    type="fixed">
+    <origin
+      xyz="-0.067275 0.7012 -0.42432"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="left_wheel_holder_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-6.9389E-18 1.1102E-16 -2.7756E-17"
+        rpy="0 0 0" />
+      <mass
+        value="5.9118" />
+      <inertia
+        ixx="0.056856"
+        ixy="-6.9119E-18"
+        ixz="-4.2487E-34"
+        iyy="0.11125"
+        iyz="-5.5409E-35"
+        izz="0.056856" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/left_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/left_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.35"
+      rpy="0 0 0" />
+    <parent
+      link="left_wheel_holder_link" />
+    <child
+      link="left_wheel_link" />
+    <axis
+      xyz="0 1 0" />
+    <dynamics damping="0.1" friction="0.05" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="right_wheel_holder_link">
+    <inertial>
+      <origin
+        xyz="1.1102E-16 -1.1102E-16 -0.2296"
+        rpy="0 0 0" />
+      <mass
+        value="4.2419" />
+      <inertia
+        ixx="0.1287"
+        ixy="-8.8611E-17"
+        ixz="-1.7835E-16"
+        iyy="0.13522"
+        iyz="-2.9429E-18"
+        izz="0.079121" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/right_wheel_holder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/right_wheel_holder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_holder_joint"
+    type="fixed">
+    <origin
+      xyz="-0.067275 -0.7012 -0.42432"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="right_wheel_holder_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_wheel_link">
+    <inertial>
+      <origin
+        xyz="-6.9389E-18 -1.1102E-16 -2.7756E-17"
+        rpy="0 0 0" />
+      <mass
+        value="5.9118" />
+      <inertia
+        ixx="0.056856"
+        ixy="-3.2189E-35"
+        ixz="-8.4142E-34"
+        iyy="0.11125"
+        iyz="1.4733E-18"
+        izz="0.056856" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/right_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/right_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.35"
+      rpy="0 0 0" />
+    <parent
+      link="right_wheel_holder_link" />
+    <child
+      link="right_wheel_link" />
+    <axis
+      xyz="0 1 0" />
+    <dynamics damping="0.1" friction="0.05" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+
+  <link
+    name="depth_camera_link">
+  </link>
+
+  <joint
+    name="depth_camera_joint"
+    type="fixed">
+    <origin
+      xyz="1.017 0 0"
+      rpy="0 0.7853982 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="depth_camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="ball_link_fl">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.20471" />
+      <inertia
+        ixx="7.3694E-05"
+        ixy="0"
+        ixz="0"
+        iyy="7.3694E-05"
+        iyz="0"
+        izz="7.3694E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/ball_link_fl.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.025" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="ball_joint_fl"
+    type="fixed">
+    <origin
+      xyz="0.917 0.866 -0.93831"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="ball_link_fl" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="ball_link_fr">
+    <inertial>
+      <origin
+        xyz="0 -1.1102E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.20471" />
+      <inertia
+        ixx="7.3694E-05"
+        ixy="0"
+        ixz="0"
+        iyy="7.3694E-05"
+        iyz="0"
+        izz="7.3694E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/ball_link_fr.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.025" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="ball_joint_fr"
+    type="fixed">
+    <origin
+      xyz="0.917 -0.866 -0.93831"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="ball_link_fr" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="ball_link_br">
+    <inertial>
+      <origin
+        xyz="0 -1.1102E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.20471" />
+      <inertia
+        ixx="7.3694E-05"
+        ixy="0"
+        ixz="0"
+        iyy="7.3694E-05"
+        iyz="0"
+        izz="7.3694E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/ball_link_br.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.025" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="ball_joint_br"
+    type="fixed">
+    <origin
+      xyz="-0.917 -0.866 -0.93831"
+      rpy="3.1416 0 3.1416" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="ball_link_br" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="ball_link_bl">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.20471" />
+      <inertia
+        ixx="7.3694E-05"
+        ixy="0"
+        ixz="0"
+        iyy="7.3694E-05"
+        iyz="0"
+        izz="7.3694E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/2w/ball_link_bl.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.025" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="ball_joint_bl"
+    type="fixed">
+    <origin
+      xyz="-0.917 0.866 -0.93831"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="ball_link_bl" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link name="path_plane"/>
+
+  <joint
+    name="path_plane_joint"
+    type="fixed">
+    <origin
+      xyz="1.017 0 -0.93831"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="path_plane" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <ros2_control name="IgnitionSystem" type="system">
+
+    <hardware>
+      <plugin>ign_ros2_control/IgnitionSystem</plugin>
+    </hardware>
+
+    <joint name="left_wheel_joint">
+      <command_interface name="velocity" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+
+    <joint name="right_wheel_joint">
+      <command_interface name="velocity" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+
+  </ros2_control>
+
+  <gazebo>
+
+    <plugin filename="libign_ros2_control-system.so"
+      name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>robot_state_publisher</robot_param_node>
+      <parameters>/home/manfred/Projects/Vitrox/src/robot_urdf/config/diffdrive.yaml</parameters>
+    </plugin>
+
+  </gazebo>
+
+  <gazebo reference="left_wheel_link">
+    <mu1>1.2</mu1>
+    <mu2>1.2</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxContacts>1</maxContacts>
+  </gazebo>
+
+  <gazebo reference="right_wheel_link">
+    <mu1>1.2</mu1>
+    <mu2>1.2</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxContacts>1</maxContacts>
+  </gazebo>
+
+  <gazebo reference="ball_link_fl">
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+  </gazebo>
+
+  <gazebo reference="ball_link_fr">
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+  </gazebo>
+
+  <gazebo reference="ball_link_br">
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+  </gazebo>
+
+  <gazebo reference="ball_link_bl">
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+  </gazebo>
+
+  <!-- <gazebo reference="depth_camera_link"> -->
+  <!--   <sensor name="rgbd_camera" type="rgbd_camera"> -->
+  <!--     <ignition_frame_id>depth_camera_link</ignition_frame_id> -->
+  <!--     <camera name="rgbd_camera_frame"> -->
+  <!--       <horizontal_fov>1.3962634</horizontal_fov> -->
+  <!--       <lens> -->
+  <!--         <intrinsics> -->
+  <!--           <fx>277.1</fx> -->
+  <!--           <fy>277.1</fy> -->
+  <!--           <cx>160.5</cx> -->
+  <!--           <cy>120.5</cy> -->
+  <!--           <s>0</s> -->
+  <!--         </intrinsics> -->
+  <!--       </lens> -->
+  <!--       <distortion> -->
+  <!--         <k1>0.104207</k1> -->
+  <!--         <k2>-0.255558</k2> -->
+  <!--         <k3>0.128694</k3> -->
+  <!--         <p1>0.000512</p1> -->
+  <!--         <p2>0.000319</p2> -->
+  <!--         <center>0.5 0.5</center> -->
+  <!--       </distortion> -->
+  <!--       <image> -->
+  <!--         <width>1280</width> -->
+  <!--         <height>720</height> -->
+  <!--         <format>L8</format> -->
+  <!--       </image> -->
+  <!--       <clip> -->
+  <!--         <near>0.01</near> -->
+  <!--         <far>300</far> -->
+  <!--       </clip> -->
+  <!--       <depth_camera> -->
+  <!--         <clip> -->
+  <!--           <near>0.1</near> -->
+  <!--           <far>10</far> -->
+  <!--         </clip> -->
+  <!--       </depth_camera> -->
+  <!--       <noise> -->
+  <!--         <type>gaussian</type> -->
+  <!--         <mean>0</mean> -->
+  <!--         <stddev>0.003</stddev> -->
+  <!--       </noise> -->
+  <!--     </camera> -->
+  <!--     <always_on>1</always_on> -->
+  <!--     <update_rate>10</update_rate> -->
+  <!--     <visualize>0</visualize> -->
+  <!--     <topic>depth_camera</topic> -->
+  <!--   </sensor> -->
+  <!-- </gazebo> -->
+
+  <gazebo reference="depth_camera_link">
+    <sensor name="gpu_lidar" type="gpu_lidar">
+      <ignition_frame_id>depth_camera_link</ignition_frame_id>
+      <topic>lidar</topic>
+      <update_rate>10</update_rate>
+      <always_on>true</always_on>
+      <visualize>false</visualize> <!-- Keep false to save resources unless debugging rays -->
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.50705</min_angle>
+            <max_angle>0.50705</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>100</samples> <!-- 16 vertical slices provides a good 3D point cloud -->
+            <resolution>1</resolution>
+            <min_angle>-0.39445</min_angle> <!-- -15 degrees -->
+            <max_angle>0.39445</max_angle>  <!-- +15 degrees -->
+          </vertical>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>15.0</max> <!-- 15 meter range is typical -->
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </lidar>
+    </sensor>
+  </gazebo>
+
+</robot>
