@@ -11,6 +11,24 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+
+add_executable(pid src/pid.cpp)
+add_executable(velocity_node src/velocity_node.cpp)
+ament_target_dependencies(pid rclcpp std_msgs geometry_msgs)
+ament_target_dependencies(velocity_node rclcpp geometry_msgs)
+
+install(TARGETS
+  pid
+  DESTINATION lib/${PROJECT_NAME})
+
+install(TARGETS
+  velocity_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
