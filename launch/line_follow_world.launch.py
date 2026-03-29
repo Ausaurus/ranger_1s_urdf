@@ -13,9 +13,9 @@ from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
-robot_model = "2wv5"
+robot_model = "2wv3(camera)"
 robot_ns = "r1"  # Robot namespace (robot name)
-pose = ["-0.72", "0.0", "0.0", "1.59"]  # Initial robot pose: x,y,z,th
+pose = ["-10.57", "-0.02", "0.0", "0.53"]  # Initial robot pose: x,y,z,th
 robot_base_color = (
     "0.0 0.0 1.0 0.95"  # Ign and Rviz color of the robot's main body (rgba)
 )
@@ -52,7 +52,7 @@ def generate_launch_description():
 
     set_sdf_path = SetEnvironmentVariable(name="SDF_PATH", value=farm_models_path)
 
-    world_file = os.path.join(pkg_share, "worlds", "clean_farm.world")
+    world_file = os.path.join(pkg_share, "worlds", "black curve curve line", "black curve curve line.sdf")
     ros_gz_sim_share = get_package_share_directory("ros_gz_sim")
 
     open_rviz = Node(
@@ -203,6 +203,22 @@ def generate_launch_description():
         # remappings=[("/cmd_vel", "/diff_drive_base_controller/cmd_vel_unstamped")],
     )
     
+    pid_node = Node (
+        package="robot_urdf",
+        executable="pid",
+        parameters=[{'velocity_topic': '/diff_drive_base_controller/cmd_vel_unstamped'}]
+    )
+    
+    lookahead_node = Node (
+        package="rgb_path",
+        executable="rgb_path",
+    )
+    
+    angle_error_node = Node (
+        package="rgb_path",
+        executable="angle_error",
+    )
+    
     return LaunchDescription(
         [
             simu_time,
@@ -215,7 +231,10 @@ def generate_launch_description():
             robot_state_publisher,
             delay_broadcaster,
             delay_dd_controller,
-            # rqt_robot_steering_node,
+            lookahead_node,
+            angle_error_node,
+            pid_node,
+            rqt_image_view,
             bridge,
         ]
     )
