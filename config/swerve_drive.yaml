@@ -1,0 +1,30 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    drive_module_steering_angle_controller:
+      type: position_controllers/JointGroupPositionController
+    
+    drive_module_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+# Configure the steering (Pivot) joints
+drive_module_steering_angle_controller:
+  ros__parameters:
+    joints:
+      - wheel_holder_joint_lf
+      - wheel_holder_joint_lb
+      - wheel_holder_joint_rb
+      - wheel_holder_joint_rf
+
+# Configure the drive (Traction) joints
+drive_module_velocity_controller:
+  ros__parameters:
+    joints:
+      - wheel_joint_lf
+      - wheel_joint_lb
+      - wheel_joint_rb
+      - wheel_joint_rf

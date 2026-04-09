@@ -12,8 +12,10 @@ from launch.actions import (
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
+from launch.substitutions import Command, PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 
-robot_model = "2wv5"
+robot_model = "ranger1s_urdf_6_cam"
 robot_ns = "r1"  # Robot namespace (robot name)
 pose = ["-0.72", "0.0", "0.0", "1.59"]  # Initial robot pose: x,y,z,th
 robot_base_color = (
@@ -73,16 +75,10 @@ def generate_launch_description():
     )
 
     urdf_file_path = os.path.join(
-            get_package_share_directory(pkg_name), "urdf", robot_model + ".urdf"
+            get_package_share_directory(pkg_name), "urdf", robot_model + ".urdf" + ".xacro"
     )
 
-    with open(urdf_file_path, "r") as infp:
-        robot_desc = infp.read()
-
-    pkg_share_dir = get_package_share_directory(pkg_name)
-    robot_desc = robot_desc.replace(
-        "package://robot_urdf", "file://" + pkg_share_dir
-    )
+    robot_desc = xacro.process_file(urdf_file_path).toxml()
 
     gz_spawn_entity = Node(
         package="ros_gz_sim",
@@ -177,6 +173,25 @@ def generate_launch_description():
         output="screen",
     )
     
+    steering_controller = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['drive_module_steering_angle_controller', '--controller-manager', '/controller_manager'],
+    )
+
+    velocity_controller = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['drive_module_velocity_controller', '--controller-manager', '/controller_manager'],
+    )
+    
+    zinger_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution([FindPackageShare('zinger_swerve_controller'), 'launch', 'swerve_controller.launch.py'])
+        ),
+        launch_arguments={'use_sim_time': 'true'}.items()
+    )
+    
     delay_broadcaster = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=gz_spawn_entity,
@@ -191,10 +206,24 @@ def generate_launch_description():
         )
     )
     
+    load_steering = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=load_joint_state_controller,
+            on_exit=[steering_controller],
+        )
+    )
+
+    # 2. Wait for Steering to finish loading, THEN load Velocity & Zinger
+    load_velocity = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=steering_controller,
+            on_exit=[velocity_controller, zinger_node],
+        )
+    )
+    
     rqt_robot_steering_node = Node(
         package="rqt_robot_steering",
         executable="rqt_robot_steering",
-        remappings=[("/cmd_vel", "/diff_drive_base_controller/cmd_vel_unstamped")],
     )
     
     rqt_image_view = Node(
@@ -214,8 +243,9 @@ def generate_launch_description():
             gz_spawn_entity,
             robot_state_publisher,
             delay_broadcaster,
-            delay_dd_controller,
-            # rqt_robot_steering_node,
+            load_steering,
+            load_velocity,
+            rqt_robot_steering_node,
             bridge,
         ]
     )

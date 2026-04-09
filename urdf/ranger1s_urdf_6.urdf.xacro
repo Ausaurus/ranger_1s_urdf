@@ -7,23 +7,23 @@ Stephen Brawner (brawner@gmail.com)
   name="robot_urdf">
   <link
     name="base_link">
-  </link>
 
+  </link>
   <link
     name="chassis_link">
     <inertial>
       <origin
-        xyz="-0.0031009 -4.9665E-19 -0.014767"
+        xyz="-0.0057618 8.8769E-15 -0.033998"
         rpy="0 0 0" />
       <mass
-        value="10" />
+        value="32.713" />
       <inertia
-        ixx="4458"
-        ixy="-3.6838E-13"
-        ixz="-12.91"
-        iyy="5083.7"
-        iyz="-2.7411E-14"
-        izz="9008.3" />
+        ixx="14.677"
+        ixy="-1.0477E-13"
+        ixz="-0.068414"
+        iyy="16.371"
+        iyz="-1.4749E-14"
+        izz="28.033" />
     </inertial>
     <visual>
       <origin
@@ -36,7 +36,7 @@ Stephen Brawner (brawner@gmail.com)
       <material
         name="">
         <color
-          rgba="0.52941 0.54902 0.54902 1" />
+          rgba="0.89804 0.91765 0.92941 1" />
       </material>
     </visual>
     <collision>
@@ -71,20 +71,20 @@ Stephen Brawner (brawner@gmail.com)
       friction="0.1" />
   </joint>
   <link
-    name="wheel_holder_link">
+    name="wheel_holder_link_lf">
     <inertial>
       <origin
-        xyz="1.1102E-16 0 -0.19944"
+        xyz="1.1102E-16 -2.2204E-16 -0.2296"
         rpy="0 0 0" />
       <mass
-        value="3" />
+        value="4.2419" />
       <inertia
-        ixx="4.7304"
-        ixy="-5.1035E-17"
-        ixz="-2.0355E-16"
-        iyy="4.794"
-        iyz="4.0941E-17"
-        izz="2.6221" />
+        ixx="0.1287"
+        ixy="-7.3591E-17"
+        ixz="-7.8137E-18"
+        iyy="0.13522"
+        iyz="1.4281E-16"
+        izz="0.079121" />
     </inertial>
     <visual>
       <origin
@@ -92,12 +92,12 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://robot_urdf/meshes/wheel_holder_link.STL" />
+          filename="package://robot_urdf/meshes/wheel_holder_link_lf.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="0.52941 0.54902 0.54902 1" />
+          rgba="0.89804 0.91765 0.92941 1" />
       </material>
     </visual>
     <collision>
@@ -106,23 +106,25 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://robot_urdf/meshes/wheel_holder_link.STL" />
+          filename="package://robot_urdf/meshes/wheel_holder_link_lf.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="wheel_holder_joint"
-    type="fixed">
+    name="wheel_holder_joint_lf"
+    type="revolute">
     <origin
       xyz="0.65801 0.7012 -0.42432"
       rpy="0 0 0" />
     <parent
       link="chassis_link" />
     <child
-      link="wheel_holder_link" />
+      link="wheel_holder_link_lf" />
     <axis
       xyz="0 0 1" />
     <limit
+      lower="0"
+      upper="0"
       effort="100"
       velocity="10" />
     <dynamics
@@ -130,340 +132,13 @@ Stephen Brawner (brawner@gmail.com)
       friction="0.1" />
   </joint>
   <link
-    name="wheel_link">
-    <inertial>
-      <origin
-        xyz="0 1.1102E-16 -2.7756E-17"
-        rpy="0 0 0" />
-      <mass
-        value="1" />
-      <inertia
-        ixx="0.056856"
-        ixy="1.2844E-18"
-        ixz="6.163E-33"
-        iyy="0.11125"
-        iyz="9.1985E-31"
-        izz="0.056856" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.29804 0.29804 0.29804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_link.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="wheel_joint"
-    type="continuous">
-    <origin
-      xyz="0 0 -0.35"
-      rpy="0 0 0" />
-    <parent
-      link="wheel_holder_link" />
-    <child
-      link="wheel_link" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      effort="10000"
-      velocity="10" />
-  </joint>
-  <link
-    name="wheel_holder_link_1">
-    <inertial>
-      <origin
-        xyz="1.1102E-16 0 -0.19944"
-        rpy="0 0 0" />
-      <mass
-        value="3" />
-      <inertia
-        ixx="4.7304"
-        ixy="5.1651E-17"
-        ixz="-2.7889E-16"
-        iyy="4.794"
-        iyz="1.2939E-16"
-        izz="2.6221" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_holder_link_1.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.52941 0.54902 0.54902 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_holder_link_1.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="wheel_holder_joint_1"
-    type="continuous">
-    <origin
-      xyz="-0.79256 0.7012 -0.42432"
-      rpy="0 0 0" />
-    <parent
-      link="chassis_link" />
-    <child
-      link="wheel_holder_link_1" />
-    <axis
-      xyz="0 0 1" />
-  </joint>
-  <link
-    name="wheel_link_1">
-    <inertial>
-      <origin
-        xyz="0 1.1102E-16 0"
-        rpy="0 0 0" />
-      <mass
-        value="1" />
-      <inertia
-        ixx="0.056856"
-        ixy="2.3141E-17"
-        ixz="-7.0617E-33"
-        iyy="0.11125"
-        iyz="1.0331E-31"
-        izz="0.056856" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_link_1.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.29804 0.29804 0.29804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_link_1.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="wheel_joint_1"
-    type="continuous">
-    <origin
-      xyz="0 0 -0.35"
-      rpy="0 0 0" />
-    <parent
-      link="wheel_holder_link_1" />
-    <child
-      link="wheel_link_1" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      effort="10000"
-      velocity="10" />
-  </joint>
-  <link
-    name="wheel_holder_link_2">
-    <inertial>
-      <origin
-        xyz="0 0 -0.19944"
-        rpy="0 0 0" />
-      <mass
-        value="3" />
-      <inertia
-        ixx="4.7304"
-        ixy="-1.6561E-16"
-        ixz="2.4565E-16"
-        iyy="4.794"
-        iyz="-8.4193E-18"
-        izz="2.6221" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_holder_link_2.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.52941 0.54902 0.54902 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_holder_link_2.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="wheel_holder_joint_2"
-    type="continuous">
-    <origin
-      xyz="-0.79256 -0.7012 -0.42432"
-      rpy="0 0 0" />
-    <parent
-      link="chassis_link" />
-    <child
-      link="wheel_holder_link_2" />
-    <axis
-      xyz="0 0 1" />
-  </joint>
-  <link
-    name="wheel_link_2">
-    <inertial>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <mass
-        value="1" />
-      <inertia
-        ixx="0.056856"
-        ixy="6.6322E-17"
-        ixz="-1.5426E-32"
-        iyy="0.11125"
-        iyz="-3.4376E-19"
-        izz="0.056856" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_link_2.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.29804 0.29804 0.29804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_link_2.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="wheel_joint_2"
-    type="continuous">
-    <origin
-      xyz="0 0 -0.35"
-      rpy="0 0 0" />
-    <parent
-      link="wheel_holder_link_2" />
-    <child
-      link="wheel_link_2" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      effort="10000"
-      velocity="10" />
-  </joint>
-  <link
-    name="wheel_holder_link_3">
-    <inertial>
-      <origin
-        xyz="0 1.1102E-16 -0.19944"
-        rpy="0 0 0" />
-      <mass
-        value="3" />
-      <inertia
-        ixx="4.7304"
-        ixy="-5.1035E-17"
-        ixz="-2.0355E-16"
-        iyy="4.794"
-        iyz="4.0941E-17"
-        izz="2.6221" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_holder_link_3.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.52941 0.54902 0.54902 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_holder_link_3.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="wheel_holder_joint_3"
-    type="fixed">
-    <origin
-      xyz="0.65801 -0.7012 -0.42432"
-      rpy="0 0 0" />
-    <parent
-      link="chassis_link" />
-    <child
-      link="wheel_holder_link_3" />
-    <axis
-      xyz="0 0 1" />
-  </joint>
-  <link
-    name="wheel_link_3">
+    name="wheel_link_lf">
     <inertial>
       <origin
         xyz="0 -1.1102E-16 0"
         rpy="0 0 0" />
       <mass
-        value="1" />
+        value="5.9118" />
       <inertia
         ixx="0.056856"
         ixy="3.4492E-18"
@@ -477,8 +152,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_link_3.STL" />
+        <cylinder radius="0.194" length="0.05" />
       </geometry>
       <material
         name="">
@@ -491,42 +165,41 @@ Stephen Brawner (brawner@gmail.com)
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://robot_urdf/meshes/wheel_link_3.STL" />
+        <cylinder radius="0.194" length="0.05" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="wheel_joint_3"
+    name="wheel_joint_lf"
     type="continuous">
     <origin
       xyz="0 0 -0.35"
       rpy="0 0 0" />
     <parent
-      link="wheel_holder_link_3" />
+      link="wheel_holder_link_lf" />
     <child
-      link="wheel_link_3" />
+      link="wheel_link_lf" />
     <axis
-      xyz="0 1 0" />
+      xyz="0 -1 0" />
     <limit
-      effort="10000"
+      effort="100"
       velocity="10" />
   </joint>
   <link
-    name="Depth_camera_link">
+    name="wheel_holder_link_lb">
     <inertial>
       <origin
-        xyz="-0.0126 -0.0011219 2.7324E-05"
+        xyz="1.1102E-16 -1.1102E-16 -0.2296"
         rpy="0 0 0" />
       <mass
-        value="0.3" />
+        value="4.2419" />
       <inertia
-        ixx="0.00076373"
-        ixy="-1.1341E-05"
-        ixz="-2.0556E-07"
-        iyy="0.00011453"
-        iyz="-4.0558E-08"
-        izz="0.0007716" />
+        ixx="0.1287"
+        ixy="-3.4869E-17"
+        ixz="-6.2384E-17"
+        iyy="0.13522"
+        iyz="2.0849E-16"
+        izz="0.079121" />
     </inertial>
     <visual>
       <origin
@@ -534,12 +207,12 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://robot_urdf/meshes/Depth_camera_link.STL" />
+          filename="package://robot_urdf/meshes/wheel_holder_link_lb.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.89804 0.91765 0.92941 1" />
       </material>
     </visual>
     <collision>
@@ -548,21 +221,320 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://robot_urdf/meshes/Depth_camera_link.STL" />
+          filename="package://robot_urdf/meshes/wheel_holder_link_lb.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
-    name="Depth_camera_joint"
-    type="fixed">
+    name="wheel_holder_joint_lb"
+    type="revolute">
     <origin
-      xyz="1.0421 0 0"
+      xyz="-0.79256 0.7012 -0.42432"
       rpy="0 0 0" />
     <parent
       link="chassis_link" />
     <child
-      link="Depth_camera_link" />
+      link="wheel_holder_link_lb" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="wheel_link_lb">
+    <inertial>
+      <origin
+        xyz="0 -1.1102E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="5.9118" />
+      <inertia
+        ixx="0.056856"
+        ixy="3.4492E-18"
+        ixz="-1.0892E-32"
+        iyy="0.11125"
+        iyz="9.227E-19"
+        izz="0.056856" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.194" length="0.05" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.194" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_joint_lb"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.35"
+      rpy="0 0 0" />
+    <parent
+      link="wheel_holder_link_lb" />
+    <child
+      link="wheel_link_lb" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="wheel_holder_link_rb">
+    <inertial>
+      <origin
+        xyz="3.3307E-16 -2.2204E-16 -0.2296"
+        rpy="0 0 0" />
+      <mass
+        value="4.2419" />
+      <inertia
+        ixx="0.1287"
+        ixy="-1.1733E-16"
+        ixz="-2.6966E-16"
+        iyy="0.13522"
+        iyz="1.0014E-16"
+        izz="0.079121" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/wheel_holder_link_rb.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/wheel_holder_link_rb.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_holder_joint_rb"
+    type="revolute">
+    <origin
+      xyz="-0.79256 -0.7012 -0.42432"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="wheel_holder_link_rb" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="wheel_link_rb">
+    <inertial>
+      <origin
+        xyz="0 -1.1102E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="5.9118" />
+      <inertia
+        ixx="0.056856"
+        ixy="3.4492E-18"
+        ixz="-1.0892E-32"
+        iyy="0.11125"
+        iyz="9.227E-19"
+        izz="0.056856" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.194" length="0.05" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.194" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_joint_rb"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.35"
+      rpy="0 0 0" />
+    <parent
+      link="wheel_holder_link_rb" />
+    <child
+      link="wheel_link_rb" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="wheel_holder_link_rf">
+    <inertial>
+      <origin
+        xyz="0 -2.2204E-16 -0.2296"
+        rpy="0 0 0" />
+      <mass
+        value="4.2419" />
+      <inertia
+        ixx="0.1287"
+        ixy="-7.3591E-17"
+        ixz="-7.9202E-18"
+        iyy="0.13522"
+        iyz="1.4433E-16"
+        izz="0.079121" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/wheel_holder_link_rf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_urdf/meshes/wheel_holder_link_rf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_holder_joint_rf"
+    type="revolute">
+    <origin
+      xyz="0.65801 -0.7012 -0.42432"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="wheel_holder_link_rf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="wheel_link_rf">
+    <inertial>
+      <origin
+        xyz="0 -1.1102E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="5.9118" />
+      <inertia
+        ixx="0.056856"
+        ixy="3.4492E-18"
+        ixz="-1.0892E-32"
+        iyy="0.11125"
+        iyz="9.227E-19"
+        izz="0.056856" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.194" length="0.05" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.194" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_joint_rf"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.35"
+      rpy="0 0 0" />
+    <parent
+      link="wheel_holder_link_rf" />
+    <child
+      link="wheel_link_rf" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="depth_camera_link">
+
+  </link>
+  <joint
+    name="depth_camera_joint"
+    type="fixed">
+    <origin
+      xyz="1.017 0 -0.21645"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="depth_camera_link" />
     <axis
       xyz="0 0 0" />
   </joint>
@@ -573,39 +545,39 @@ Stephen Brawner (brawner@gmail.com)
       <plugin>ign_ros2_control/IgnitionSystem</plugin>
     </hardware>
 
-    <joint name="wheel_joint">
+    <joint name="wheel_joint_lf">
       <command_interface name="velocity" />
       <state_interface name="position" />
       <state_interface name="velocity" />
     </joint>
 
-    <joint name="wheel_joint_1">
+    <joint name="wheel_joint_lb">
       <command_interface name="velocity" />
       <state_interface name="position" />
       <state_interface name="velocity" />
     </joint>
 
-    <joint name="wheel_joint_2">
+    <joint name="wheel_joint_rb">
       <command_interface name="velocity" />
       <state_interface name="position" />
       <state_interface name="velocity" />
     </joint>
 
-    <joint name="wheel_joint_3">
+    <joint name="wheel_joint_rf">
       <command_interface name="velocity" />
       <state_interface name="position" />
       <state_interface name="velocity" />
     </joint>
 
-    <joint name="wheel_holder_joint_1">
-      <state_interface name="position" />
-      <state_interface name="velocity" />
-    </joint>
-
-    <joint name="wheel_holder_joint_2">
-      <state_interface name="position" />
-      <state_interface name="velocity" />
-    </joint>
+    <!-- <joint name="wheel_holder_joint_1"> -->
+    <!--   <state_interface name="position" /> -->
+    <!--   <state_interface name="velocity" /> -->
+    <!-- </joint> -->
+    <!---->
+    <!-- <joint name="wheel_holder_joint_2"> -->
+    <!--   <state_interface name="position" /> -->
+    <!--   <state_interface name="velocity" /> -->
+    <!-- </joint> -->
 
   </ros2_control>
 
@@ -615,35 +587,35 @@ Stephen Brawner (brawner@gmail.com)
       name="ign_ros2_control::IgnitionROS2ControlPlugin">
       <robot_param>robot_description</robot_param>
       <robot_param_node>robot_state_publisher</robot_param_node>
-      <parameters>/home/manfred/Projects/Vitrox/src/robot_urdf/config/diffdrive.yaml</parameters>
+      <parameters>$(find robot_urdf)/config/diffdrive_4w.yaml</parameters>
     </plugin>
 
   </gazebo>
 
-  <gazebo reference="wheel_link">
+  <gazebo reference="wheel_link_lf">
     <mu1>1.2</mu1>
-    <mu2>1.2</mu2>
+    <mu2>0.01</mu2>
     <kp>1000000.0</kp>
     <kd>100.0</kd>
   </gazebo>
 
-  <gazebo reference="wheel_link_1">
+  <gazebo reference="wheel_link_lb">
     <mu1>1.2</mu1>
-    <mu2>1.2</mu2>
+    <mu2>0.01</mu2>
     <kp>1000000.0</kp>
     <kd>100.0</kd>
   </gazebo>
 
-  <gazebo reference="wheel_link_2">
+  <gazebo reference="wheel_link_rb">
     <mu1>1.2</mu1>
-    <mu2>1.2</mu2>
+    <mu2>0.01</mu2>
     <kp>1000000.0</kp>
     <kd>100.0</kd>
   </gazebo>
 
-  <gazebo reference="wheel_link_3">
+  <gazebo reference="wheel_link_rf">
     <mu1>1.2</mu1>
-    <mu2>1.2</mu2>
+    <mu2>0.01</mu2>
     <kp>1000000.0</kp>
     <kd>100.0</kd>
   </gazebo>
@@ -652,9 +624,9 @@ Stephen Brawner (brawner@gmail.com)
     <material>Gazebo/Orange</material>
   </gazebo>
 
-  <gazebo reference="Depth_camera_link">
+  <gazebo reference="depth_camera_link">
     <sensor name="rgbd_camera" type="rgbd_camera">
-      <ignition_frame_id>Depth_camera_link</ignition_frame_id>
+      <ignition_frame_id>depth_camera_link</ignition_frame_id>
       <camera name="rgbd_camera_frame">
         <horizontal_fov>1.3962634</horizontal_fov>
         <lens>

@@ -8,7 +8,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     urdf_tutorial_path = FindPackageShare('robot_urdf')
-    default_model_path = PathJoinSubstitution(['urdf', '2wv5.urdf'])
+    default_model_path = PathJoinSubstitution(['urdf', 'ranger1s_urdf_6_cam.urdf'])
     default_rviz_config_path = PathJoinSubstitution([urdf_tutorial_path, 'rviz', 'urdf.rviz'])
 
     # These parameters are maintained for backwards compatibility

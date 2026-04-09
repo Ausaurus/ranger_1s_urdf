@@ -550,7 +550,7 @@ Stephen Brawner (brawner@gmail.com)
       name="ign_ros2_control::IgnitionROS2ControlPlugin">
       <robot_param>robot_description</robot_param>
       <robot_param_node>robot_state_publisher</robot_param_node>
-      <parameters>/home/manfred/Projects/Vitrox/src/robot_urdf/config/diffdrive.yaml</parameters>
+      <parameters>$(find robot_urdf)/config/diffdrive.yaml</parameters>
     </plugin>
 
   </gazebo>

@@ -12,8 +12,11 @@ from launch.actions import (
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
+from launch.substitutions import Command, PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
+import xacro
 
-robot_model = "2wv3(camera)"
+robot_model = "ranger1s_urdf_6_cam"
 robot_ns = "r1"  # Robot namespace (robot name)
 pose = ["-10.57", "-0.02", "0.0", "0.53"]  # Initial robot pose: x,y,z,th
 robot_base_color = (
@@ -73,16 +76,10 @@ def generate_launch_description():
     )
 
     urdf_file_path = os.path.join(
-            get_package_share_directory(pkg_name), "urdf", robot_model + ".urdf"
+            get_package_share_directory(pkg_name), "urdf", robot_model + ".urdf" + ".xacro"
     )
 
-    with open(urdf_file_path, "r") as infp:
-        robot_desc = infp.read()
-
-    pkg_share_dir = get_package_share_directory(pkg_name)
-    robot_desc = robot_desc.replace(
-        "package://robot_urdf", "file://" + pkg_share_dir
-    )
+    robot_desc = xacro.process_file(urdf_file_path).toxml()
 
     gz_spawn_entity = Node(
         package="ros_gz_sim",
@@ -165,14 +162,33 @@ def generate_launch_description():
         output="screen",
     )
     
-    load_dd_controller = ExecuteProcess(
+    steering_controller = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['drive_module_steering_angle_controller', '--controller-manager', '/controller_manager'],
+    )
+
+    velocity_controller = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['drive_module_velocity_controller', '--controller-manager', '/controller_manager'],
+    )
+    
+    zinger_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution([FindPackageShare('zinger_swerve_controller'), 'launch', 'swerve_controller.launch.py'])
+        ),
+        launch_arguments={'use_sim_time': 'true'}.items()
+    )
+    
+    load_ack_controller = ExecuteProcess(
         cmd=[
             "ros2",
             "control",
             "load_controller",
             "--set-state",
             "active",
-            "diff_drive_base_controller",
+            "ackermann_steering_controller",
         ],
         output="screen",
     )
@@ -184,10 +200,43 @@ def generate_launch_description():
         )
     )
     
-    delay_dd_controller = RegisterEventHandler(
+    delay_ack_controller = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=gz_spawn_entity,
-            on_exit=[load_dd_controller],
+            on_exit=[load_ack_controller],
+        )
+    )
+
+    # Wait for the joint state broadcaster to finish before loading the drive/steering controllers and Zinger
+    load_steering = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=load_joint_state_controller,
+            on_exit=[steering_controller],
+        )
+    )
+
+    # 2. Wait for Steering to finish loading, THEN load Velocity & Zinger
+    load_velocity = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=steering_controller,
+            on_exit=[velocity_controller, zinger_node],
+        )
+    )
+    
+    pid_node = Node (
+        package="robot_urdf",
+        executable="pid",
+        parameters=[{'velocity_topic': '/cmd_vel'},
+                    {'deadband': 0.2},
+                    {"speed_reduction_factor": 5.0},
+                    {"speed_smoothing": 0.1},
+                    {"kp": 2.0}]
+    )
+    
+    load_pid = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=velocity_controller,
+            on_exit=[pid_node],
         )
     )
     
@@ -201,12 +250,6 @@ def generate_launch_description():
         package="rqt_image_view",
         executable="rqt_image_view",
         # remappings=[("/cmd_vel", "/diff_drive_base_controller/cmd_vel_unstamped")],
-    )
-    
-    pid_node = Node (
-        package="robot_urdf",
-        executable="pid",
-        parameters=[{'velocity_topic': '/diff_drive_base_controller/cmd_vel_unstamped'}]
     )
     
     lookahead_node = Node (
@@ -230,10 +273,11 @@ def generate_launch_description():
             gz_spawn_entity,
             robot_state_publisher,
             delay_broadcaster,
-            delay_dd_controller,
+            load_steering,
+            load_velocity,
+            load_pid,
             lookahead_node,
             angle_error_node,
-            pid_node,
             rqt_image_view,
             bridge,
         ]

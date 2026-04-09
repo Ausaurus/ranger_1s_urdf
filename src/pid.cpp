@@ -1,35 +1,45 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <geometry_msgs/msg/twist.hpp>
+#include <cmath>     // Required for std::abs and std::exp
+#include <algorithm> // Required for std::max
 
 class AngularPidNode : public rclcpp::Node
 {
 public:
     AngularPidNode() : Node("angular_pid_node")
     {
-        // Declare and initialize PID parameters
         this->declare_parameter("kp", 1.0);
         this->declare_parameter("ki", 0.0);
         this->declare_parameter("kd", 0.1);
-        this->declare_parameter("max_integral", 10.0); // Anti-windup limit
+        this->declare_parameter("max_integral", 10.0);
+        this->declare_parameter("linear_x", 0.5);      
+        this->declare_parameter("deadband", 0.02);
+        
+        // NEW: Exponential Scaling & Smoothing Parameters
+        this->declare_parameter("min_linear_x", 0.05); 
+        this->declare_parameter("speed_reduction_factor", 2.0); // k in the exponent
+        this->declare_parameter("speed_smoothing", 0.1);        // Alpha for the low-pass filter (0.0 to 1.0)
+        
         this->declare_parameter("velocity_topic", "/cmd_vel");
 
-        // Initialize state variables
         integral_error_ = 0.0;
         previous_error_ = 0.0;
+        last_published_angular_z_ = 0.0;
+        last_published_linear_x_ = 0.0; 
+        current_smoothed_linear_x_ = 0.0; // Track the filtered velocity state
         has_previous_time_ = false;
+        first_message_sent_ = false;
 
-        // Create publisher for angular velocity (typically cmd_vel)
         std::string topic_name = this->get_parameter("velocity_topic").as_string();
         velocity_pub_ = this->create_publisher<geometry_msgs::msg::Twist>(topic_name, 10);
 
-        // Create subscriber for angle error
         error_sub_ = this->create_subscription<std_msgs::msg::Float64>(
             "lookahead_angle", 10,
             std::bind(&AngularPidNode::errorCallback, this, std::placeholders::_1)
         );
 
-        RCLCPP_INFO(this->get_logger(), "Angular PID Node initialized.");
+        RCLCPP_INFO(this->get_logger(), "Angular PID Node initialized with Exponential Scaling & Low-Pass Filter.");
     }
 
 private:
@@ -38,60 +48,85 @@ private:
         rclcpp::Time current_time = this->now();
         double current_error = msg->data;
 
-        // Fetch current parameters in case they were updated dynamically
         double kp = this->get_parameter("kp").as_double();
         double ki = this->get_parameter("ki").as_double();
         double kd = this->get_parameter("kd").as_double();
         double max_integral = this->get_parameter("max_integral").as_double();
+        double max_linear_x = this->get_parameter("linear_x").as_double();
+        double deadband = this->get_parameter("deadband").as_double();
+        double min_linear_x = this->get_parameter("min_linear_x").as_double();
+        double reduction_factor = this->get_parameter("speed_reduction_factor").as_double();
+        double alpha = this->get_parameter("speed_smoothing").as_double(); // Low-pass filter coefficient
 
         double dt = 0.0;
         if (has_previous_time_) {
             dt = (current_time - previous_time_).seconds();
         }
 
-        // Avoid division by zero on the first pass or if messages arrive instantly
         if (dt <= 0.0) {
             previous_time_ = current_time;
             has_previous_time_ = true;
             return;
         }
 
-        // Proportional term
+        // --- PID MATH ---
         double p_term = kp * current_error;
 
-        // Integral term with anti-windup (clamping)
         integral_error_ += current_error * dt;
         if (integral_error_ > max_integral) integral_error_ = max_integral;
         if (integral_error_ < -max_integral) integral_error_ = -max_integral;
         double i_term = ki * integral_error_;
 
-        // Derivative term
         double derivative = (current_error - previous_error_) / dt;
         double d_term = kd * derivative;
 
-        // Calculate total control output (angular velocity)
         double angular_velocity = p_term + i_term + d_term;
 
-        // Publish the output as a Twist message (rotating around the Z axis)
-        auto twist_msg = geometry_msgs::msg::Twist();
-        twist_msg.angular.z = angular_velocity;
-        twist_msg.linear.x = 1.5;
-        velocity_pub_->publish(twist_msg);
+        // --- 1. EXPONENTIAL VELOCITY SCALING ---
+        // target_v = v_max * e^(-k * |w|)
+        double target_linear_x = max_linear_x * std::exp(-reduction_factor * std::abs(angular_velocity));
+        target_linear_x = std::max(min_linear_x, target_linear_x);
 
-        // Update state variables for the next iteration
+        // --- 2. DISCRETE LOW-PASS FILTER (EMA) ---
+        // Initialize the filter instantly on the first message so it doesn't ramp up from 0 unnecessarily
+        if (!first_message_sent_) {
+            current_smoothed_linear_x_ = max_linear_x;
+        }
+        
+        // Apply the filter: v[n] = v[n-1] + alpha * (x[n] - v[n-1])
+        current_smoothed_linear_x_ = current_smoothed_linear_x_ + alpha * (target_linear_x - current_smoothed_linear_x_);
+
+        // --- DEADBAND FILTER & KICKSTART ---
+        if (!first_message_sent_ || 
+            std::abs(angular_velocity - last_published_angular_z_) > deadband ||
+            std::abs(current_smoothed_linear_x_ - last_published_linear_x_) > deadband) {
+            
+            auto twist_msg = geometry_msgs::msg::Twist();
+            twist_msg.linear.x = current_smoothed_linear_x_;
+            twist_msg.angular.z = angular_velocity;
+            
+            velocity_pub_->publish(twist_msg);
+            
+            last_published_angular_z_ = angular_velocity;
+            last_published_linear_x_ = current_smoothed_linear_x_;
+            first_message_sent_ = true; 
+        }
+
         previous_error_ = current_error;
         previous_time_ = current_time;
     }
 
-    // ROS 2 Interfaces
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr velocity_pub_;
     rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr error_sub_;
 
-    // State memory
     double integral_error_;
     double previous_error_;
+    double last_published_angular_z_;
+    double last_published_linear_x_;
+    double current_smoothed_linear_x_; // NEW: Filter state memory
     rclcpp::Time previous_time_;
     bool has_previous_time_;
+    bool first_message_sent_;
 };
 
 int main(int argc, char **argv)
