@@ -15,7 +15,7 @@ from launch_ros.actions import Node
 from launch.substitutions import Command, PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
 
-robot_model = "ranger1s_urdf_6_cam"
+robot_model = "ranger1s_urdf_6"
 robot_ns = "r1"  # Robot namespace (robot name)
 pose = ["-0.72", "0.0", "0.0", "1.59"]  # Initial robot pose: x,y,z,th
 robot_base_color = (
