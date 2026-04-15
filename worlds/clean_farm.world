@@ -67,7 +67,7 @@
 
     <include>
       <name>farm_two</name>
-      <uri>model://farm_model3</uri>     <!-- change farm model here -->
+      <uri>model://farm_model4</uri>     <!-- change farm model here -->
       <pose>0 0 0 0 0 0</pose> 
     </include>
 

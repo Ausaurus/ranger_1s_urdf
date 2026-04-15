@@ -17,7 +17,7 @@ from launch_ros.substitutions import FindPackageShare
 
 robot_model = "ranger1s_urdf_6"
 robot_ns = "r1"  # Robot namespace (robot name)
-pose = ["-0.72", "0.0", "0.0", "1.59"]  # Initial robot pose: x,y,z,th
+pose = ["-0.01", "-0.88", "0.0", "1.59"]  # Initial robot pose: x,y,z,th
 robot_base_color = (
     "0.0 0.0 1.0 0.95"  # Ign and Rviz color of the robot's main body (rgba)
 )
