@@ -507,7 +507,7 @@ Stephen Brawner (brawner@gmail.com)
     type="fixed">
     <origin
       xyz="1.917 0 0.30271"
-      rpy="0 1.570796 0" />
+      rpy="0 1.90 0" />
     <parent
       link="chassis_link" />
     <child

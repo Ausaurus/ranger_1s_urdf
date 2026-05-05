@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by
+Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="kobuki">
+  <link
+    name="base_link">
+  </link>
+
+  <link
+    name="kobuki">
+  </link>
+
+  <joint 
+    name="base_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.75"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="kobuki" />  
+  </joint>
+
+  <link
+    name="depth_link_r">
+  </link>
+
+  <joint
+    name="depth_joint_r"
+    type="fixed">
+    <origin
+      xyz="0 -0.45 0"
+      rpy="0 0.7853982 0.2618" />
+    <parent
+      link="kobuki" />
+    <child
+      link="depth_link_r" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="depth_link_l">
+  </link>
+
+  <joint
+    name="depth_joint_l"
+    type="fixed">
+    <origin
+      xyz="0 0.45 0"
+      rpy="0 0.7853982 -0.2618" />
+    <parent
+      link="kobuki" />
+    <child
+      link="depth_link_l" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+</robot>

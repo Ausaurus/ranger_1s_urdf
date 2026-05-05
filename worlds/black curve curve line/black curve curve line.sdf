@@ -100,7 +100,7 @@
             <diffuse>0.8 0.8 0.8 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>model://black curve curve line/materials/textures/black curve curve line.png</albedo_map>
+                <albedo_map>model://black curve curve line/materials/textures/Drawing.png</albedo_map>
               </metal>
             </pbr>
           </material>

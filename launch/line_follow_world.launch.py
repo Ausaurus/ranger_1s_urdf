@@ -230,7 +230,8 @@ def generate_launch_description():
                     {'deadband': 0.2},
                     {"speed_reduction_factor": 5.0},
                     {"speed_smoothing": 0.1},
-                    {"kp": 2.0}]
+                    {"kp": 5.0},
+                    {"kd": 0.3}]
     )
     
     load_pid = RegisterEventHandler(
@@ -260,6 +261,7 @@ def generate_launch_description():
     angle_error_node = Node (
         package="rgb_path",
         executable="angle_error",
+        # parameters=[{"camera_x_offset": 1.7}],
     )
     
     return LaunchDescription(
